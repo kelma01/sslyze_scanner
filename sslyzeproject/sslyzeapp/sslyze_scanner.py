@@ -1,12 +1,20 @@
 import datetime
 from pathlib import Path
 from typing import List
-import json as std_json
 from sslyze import *
+import requests
 
 def sslyze_scan(domain):
-    output = start_scan(domain)
-    return output
+    if check_domain_status(domain):
+        output = start_scan(domain)
+        return output
+    else:
+        return {}
+
+def check_domain_status(domain):
+    response = requests.get(f"https://{domain}", timeout=10)
+    status_code = response.status_code
+    return True if status_code == 200 else False
 
 def start_scan(domain):
     date_scans_started = datetime.datetime.utcnow()
@@ -40,5 +48,5 @@ def json_result_output(
         date_scans_completed=date_scans_completed,
     )
     json_output_as_str = json_output.model_dump_json()
-    json_file_out.write_text(json_output_as_str)
+    # json_file_out.write_text(json_output_as_str)
     return json_output_as_str

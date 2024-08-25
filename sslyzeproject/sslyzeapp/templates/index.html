@@ -4,12 +4,12 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Processor</title>
+    <title>SSL Checker</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <div>
-        <h1>Text Processor</h1>
+        <h1>SSL Checker</h1>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -17,10 +17,6 @@
         </form>
         {% if result %}
             <table>
-                <tr>
-                    <th>Field</th>
-                    <th>Value</th>
-                </tr>
                 {% for key, value in result.items %}
                 <tr>
                     <td>{{ key }}</td>
