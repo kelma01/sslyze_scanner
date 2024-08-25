@@ -1,16 +1,14 @@
 import datetime
 from pathlib import Path
 from typing import List
-import json
-
+import json as std_json
 from sslyze import *
 
-
 def sslyze_scan(domain):
-    json_output_as_str = start_scan(domain)
-    return json.dumps(json_output_as_str)
+    output = start_scan(domain)
+    return output
 
-def start_scan(domain) -> str:
+def start_scan(domain):
     date_scans_started = datetime.datetime.utcnow()
     try:
         scan_reqs = [ServerScanRequest(server_location=ServerNetworkLocation(hostname=domain))]
